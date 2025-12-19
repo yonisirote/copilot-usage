@@ -1,0 +1,22 @@
+# User configuration and secrets
+~/.config/copilot-usage/
+.config/
+.env
+.env.local
+*.token
+*.key
+*.secret
+
+# OS and editor files
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.vim/
+
+# Temporary files
+*.tmp
+/tmp/
+/cache/
