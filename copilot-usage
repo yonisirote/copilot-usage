@@ -337,8 +337,11 @@ main() {
 
     # Get username if not provided
     if [[ -z "$username" ]]; then
-        # Prompt for GitHub username
-        read -p "Enter your GitHub username: " username
+        # Try to get from git config
+        username=$(git config user.name 2>/dev/null | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+        if [[ -z "$username" ]]; then
+            read -p "Enter your GitHub username: " username
+        fi
     fi
 
     if [[ -z "$username" ]]; then
