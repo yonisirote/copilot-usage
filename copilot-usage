@@ -264,38 +264,9 @@ get_premium_request_usage() {
             print_info "Discount applied: \$${discount}"
         fi
     else
-        print_success "All requests covered by Pro plan (\$$total_gross value of usage)"
+        echo -e "${GREEN}[✓] All requests covered by Pro plan (\$$total_gross value of usage)${NC}"
     fi
     echo ""
-}
-
-# Fetch overall billing summary
-get_billing_summary() {
-    local username=$1
-    local token=$2
-    local period=$3
-
-    print_header "Other Usage"
-    
-    data=$(fetch_api "/users/$username/settings/billing/usage/summary$period" "$token")
-    
-    if [[ -z "$data" ]]; then
-        print_info "No billing summary data available"
-        return 0
-    fi
-
-    # Filter for non-Copilot products and display them
-    local has_other_usage=$(echo "$data" | jq '[.usageItems[] | select(.netQuantity > 0 and .product != "Copilot")] | length' 2>/dev/null)
-    
-    if [[ "$has_other_usage" -gt 0 ]]; then
-        echo ""
-        echo "$data" | jq -r '.usageItems[] | select(.netQuantity > 0 and .product != "Copilot") | 
-            "  \(.product): \(.netQuantity) \(.unitType) (\$\(.netAmount))"' 2>/dev/null | sort
-        echo ""
-    else
-        echo "  No other usage this period"
-        echo ""
-    fi
 }
 
 # Main execution
@@ -356,9 +327,8 @@ main() {
     # Get current month period
     period=$(get_current_period)
 
-    # Fetch both datasets
-    get_premium_request_usage "$username" "$token" "$period" && echo ""
-    get_billing_summary "$username" "$token" "$period"
+    # Fetch usage data
+    get_premium_request_usage "$username" "$token" "$period"
 
     echo ""
     print_success "Done!"
