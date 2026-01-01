@@ -329,9 +329,6 @@ main() {
 
     # Fetch usage data
     get_premium_request_usage "$username" "$token" "$period"
-
-    echo ""
-    print_success "Done!"
 }
 
 # Run main function
