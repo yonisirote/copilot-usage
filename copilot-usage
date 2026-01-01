@@ -1,7 +1,5 @@
 #!/bin/bash
-
-# GitHub Copilot Usage Data Tool
-# Fetches and displays your Copilot usage statistics from GitHub API
+# GitHub Copilot Usage Data Tool - Fetches and displays your Copilot usage statistics from GitHub API
 
 set -e
 
