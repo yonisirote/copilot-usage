@@ -261,8 +261,6 @@ get_premium_request_usage() {
         if (( $(echo "$discount > 0" | bc -l 2>/dev/null || echo 0) )); then
             print_info "Discount applied: \$${discount}"
         fi
-    else
-        echo -e "${GREEN}[✓] All requests covered by Pro plan (\$$total_gross value of usage)${NC}"
     fi
     echo ""
 }
